@@ -2,15 +2,15 @@
 
 ## Quick start
 
-  git clone https://github.com/iYarik91/test1.git && cd test1
+  - git clone https://github.com/iYarik91/test1.git && cd test1
   
-  terraform init
-  terraform plan
-  terraform apply
+  - terraform init
+  - terraform plan
+  - terraform apply
   
   # Wait until infrastructure become ready
   
-  ansible-playbook main.yaml
+  - ansible-playbook main.yaml
   
   # You are good to go
   
