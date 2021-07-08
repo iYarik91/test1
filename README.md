@@ -14,5 +14,5 @@
   
   # You are good to go
   
-  http://<hostname>:5000/
+  http://hostname:5000/
   
