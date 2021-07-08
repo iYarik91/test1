@@ -1,0 +1,46 @@
+---
+- hosts: frontend
+  become: yes
+  become_method: sudo
+
+  tasks:
+
+  - name: Install required system packages
+    apt: name={{ item }} state=latest update_cache=yes
+    loop: [ 'apt-transport-https', 'ca-certificates', 'software-properties-common', 'gnupg', 'lsb-release']
+
+  - name: Add Docker GPG apt Key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Add Docker Repository
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu focal stable
+      state: present
+
+  - name: Update apt and install docker-ce
+    apt: update_cache=yes name=docker-ce state=latest
+
+  - name: enable Docker services
+    service:
+      name: "docker"
+      state: started
+      enabled: yes
+
+  - name: git clone repo
+    git:
+      repo: https://github.com/iYarik91/test1.git
+      dest: ~/test1
+
+  - name: Check if container is running
+    shell: docker ps
+
+  - name: build docker image
+    shell: cd ~/test1 && docker build -t test1 .
+
+  - name: run docker image
+    shell: docker run -dit -p 5000:5000 test1
+
+  - name: show running images
+    shell: docker images
