@@ -14,7 +14,7 @@ provider "aws" {
     region  = "eu-central-1"
 }
 
-esource "aws_security_group_rule" "port443" {
+resource "aws_security_group_rule" "port443" {
   type              = "ingress"
   from_port         = 443
   to_port           = 443
